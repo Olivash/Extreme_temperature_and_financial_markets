@@ -1,0 +1,84 @@
+Input directory : /NImounts/NiClimateDev/data/historical/era5_land/summer/tmax
+Output          : /users/is/mgoldklang/code/Extreme_temperature_and_financial_markets/data/processed/climatologies/tmax_95th_pctl_doy_nh_jja_global_1990_2020.nc
+NH tiles        : 24
+Lat range       : 90.0 → 0.0
+Output grid     : 901 lat × 3600 lon × DOYs
+
+Approximate JJA DOYs: [153, 154, 155, 156, 157] ... [240, 241, 242, 243, 244] (n=92)
+
+[ 1/24] lat+060.1to+090.0_lon000.0to059.9
+  → 300×600 (46,385 land cells, 93 DOYs)  172s
+
+[ 2/24] lat+060.1to+090.0_lon060.0to119.9
+  → 300×600 (84,714 land cells, 93 DOYs)  224s
+
+[ 3/24] lat+060.1to+090.0_lon120.0to179.9
+  → 300×600 (64,567 land cells, 93 DOYs)  161s
+
+[ 4/24] lat+060.1to+090.0_lon180.0to239.9
+  → 300×600 (47,908 land cells, 93 DOYs)  141s
+
+[ 5/24] lat+060.1to+090.0_lon240.0to299.9
+  → 300×600 (72,722 land cells, 93 DOYs)  186s
+
+[ 6/24] lat+060.1to+090.0_lon300.0to359.9
+  → 300×600 (65,452 land cells, 93 DOYs)  160s
+
+[ 7/24] lat+030.1to+060.0_lon000.0to059.9
+  → 300×600 (139,541 land cells, 93 DOYs)  280s
+
+[ 8/24] lat+030.1to+060.0_lon060.0to119.9
+  → 300×600 (179,538 land cells, 93 DOYs)  359s
+
+[ 9/24] lat+030.1to+060.0_lon120.0to179.9
+  → 300×600 (47,267 land cells, 93 DOYs)  163s
+
+[10/24] lat+030.1to+060.0_lon180.0to239.9
+  → 300×600 (20,122 land cells, 93 DOYs)  123s
+
+[11/24] lat+030.1to+060.0_lon240.0to299.9
+  → 300×600 (143,718 land cells, 93 DOYs)  297s
+
+[12/24] lat+030.1to+060.0_lon300.0to359.9
+  → 300×600 (18,130 land cells, 93 DOYs)  119s
+
+[13/24] lat+000.1to+030.0_lon000.0to059.9
+  → 300×600 (146,476 land cells, 93 DOYs)  271s
+
+[14/24] lat+000.1to+030.0_lon060.0to119.9
+  → 300×600 (76,591 land cells, 93 DOYs)  200s
+
+[15/24] lat+000.1to+030.0_lon120.0to179.9
+  → 300×600 (3,489 land cells, 93 DOYs)  89s
+
+[16/24] lat+000.1to+030.0_lon180.0to239.9
+  → 300×600 (144 land cells, 93 DOYs)  78s
+
+[17/24] lat+000.1to+030.0_lon240.0to299.9
+  → 300×600 (43,194 land cells, 93 DOYs)  147s
+
+[18/24] lat+000.1to+030.0_lon300.0to359.9
+  → 300×600 (42,326 land cells, 93 DOYs)  135s
+
+[19/24] lat+000.0to+000.0_lon000.0to059.9
+  → 1×600 (336 land cells, 93 DOYs)  26s
+
+[20/24] lat+000.0to+000.0_lon060.0to119.9
+  → 1×600 (125 land cells, 93 DOYs)  40s
+
+[21/24] lat+000.0to+000.0_lon120.0to179.9
+  → 1×600 (6 land cells, 93 DOYs)  17s
+
+[22/24] lat+000.0to+000.0_lon180.0to239.9
+  → ocean/empty, skipped (0s)
+
+[23/24] lat+000.0to+000.0_lon240.0to299.9
+  → 1×600 (203 land cells, 93 DOYs)  26s
+
+[24/24] lat+000.0to+000.0_lon300.0to359.9
+  → 1×600 (97 land cells, 93 DOYs)  16s
+
+Saved: /users/is/mgoldklang/code/Extreme_temperature_and_financial_markets/data/processed/climatologies/tmax_95th_pctl_doy_nh_jja_global_1990_2020.nc
+  Shape: (93, 901, 3600)  (115,599,558 finite values)
+  File size: 1206.7 MB
+  Elapsed: 57.2 min

@@ -1,0 +1,13 @@
+ERA5 target grid: 721 lat × 1440 lon (0.25°)
+Files to process: 1
+
+Input : tmax_95th_pctl_doy_nh_jja_1990_2020.nc
+Output: tmax_95th_pctl_doy_nh_jja_1990_2020_025deg.nc
+  Source dims : {'dayofyear': 93, 'latitude': 251, 'longitude': 601}
+  Lat range   : 25.00 → 50.00
+  Lon range   : -125.00 → -65.00
+  slice 1/93  slice 10/93  slice 20/93  slice 30/93  slice 40/93  slice 50/93  slice 60/93  slice 70/93  slice 80/93  slice 90/93  slice 93/93
+  Output dims : {'dayofyear': 93, 'latitude': 721, 'longitude': 1440}
+  Valid cells : 9,938,910 → 1,625,733
+  Written 386.3 MB in 1.4s → data/processed/climatologies/tmax_95th_pctl_doy_nh_jja_1990_2020_025deg.nc
+

@@ -1,0 +1,16 @@
+Waiting for SH DJF file...
+SH DJF file found, starting coarsening...
+ERA5 target grid: 721 lat × 1440 lon (0.25°)
+Files to process: 1
+
+Input : tmax_95th_pctl_doy_sh_djf_1990_2020.nc
+Output: tmax_95th_pctl_doy_sh_djf_1990_2020_025deg.nc
+  Source dims : {'dayofyear': 92, 'latitude': 901, 'longitude': 3600}
+  Lat range   : -90.00 → 0.00
+  Lon range   : -180.00 → 179.90
+  slice 1/92  slice 10/92  slice 20/92  slice 30/92  slice 40/92  slice 50/92  slice 60/92  slice 70/92  slice 80/92  slice 90/92  slice 92/92
+  Output dims : {'dayofyear': 92, 'latitude': 721, 'longitude': 1440}
+  Valid cells : 89,281,952 → 14,575,284
+  Written 382.1 MB in 5.6s → /users/is/mgoldklang/code/Extreme_temperature_and_financial_markets/data/processed/climatologies/tmax_95th_pctl_doy_sh_djf_1990_2020_025deg.nc
+
+Done.

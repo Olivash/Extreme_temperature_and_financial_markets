@@ -1,0 +1,16 @@
+Waiting for NH JJA global file...
+File found, coarsening...
+ERA5 target grid: 721 lat × 1440 lon (0.25°)
+Files to process: 1
+
+Input : tmax_95th_pctl_doy_nh_jja_global_1990_2020.nc
+Output: tmax_95th_pctl_doy_nh_jja_global_1990_2020_025deg.nc
+  Source dims : {'dayofyear': 93, 'latitude': 901, 'longitude': 3600}
+  Lat range   : 0.00 → 90.00
+  Lon range   : -180.00 → 179.90
+  slice 1/93  slice 10/93  slice 20/93  slice 30/93  slice 40/93  slice 50/93  slice 60/93  slice 70/93  slice 80/93  slice 90/93  slice 93/93
+  Output dims : {'dayofyear': 93, 'latitude': 721, 'longitude': 1440}
+  Valid cells : 115,599,558 → 19,174,647
+  Written 386.3 MB in 6.0s → /users/is/mgoldklang/code/Extreme_temperature_and_financial_markets/data/processed/climatologies/tmax_95th_pctl_doy_nh_jja_global_1990_2020_025deg.nc
+
+Done.
