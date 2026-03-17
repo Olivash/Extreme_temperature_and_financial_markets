@@ -3,6 +3,11 @@ data/raw/climate/era5_land_tmax/
 data/raw/climate/era5_025deg/
 data/raw/shapes/ghs_settlement/
 
+# Climatology NetCDFs — ignore full-res and CONUS; keep global coarsened 0.25° versions
+data/processed/climatologies/*.nc
+!data/processed/climatologies/*_nh_jja_global_*_025deg.nc
+!data/processed/climatologies/*_sh_djf_*_025deg.nc
+
 # Intermediate tile cache from compute_ehd_global.py
 data/processed/exceedance_frequency/tiles/
 
