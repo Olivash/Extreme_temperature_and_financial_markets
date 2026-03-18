@@ -89,3 +89,38 @@ RESULTS_CSV          = PANEL_DIR / "panel_regression_gdp_heat_results.csv"
 
 # Cache directory (rasterised admin2 grids, reprojected settlement rasters)
 CACHE_DIR            = PROCESSED_DIR / "cache"
+
+# ── Admin1 spatial / GDP data ─────────────────────────────────────────────────
+# GADM admin1 GeoPackage with GDP per capita 1990-2022. Same structure as admin2
+# but at admin1 level. Source: Global Data Lab + GADM v4.1.
+ADMIN1_GPKG = Path(
+    os.environ.get("ADMIN1_GPKG",
+                   str(REPO_ROOT / "data" / "raw" / "gdp"
+                       / "polyg_adm1_gdp_perCapita_1990_2022.gpkg"))
+)
+
+# Admin1 GDP growth parquet (long format: GID_nmbr, iso3, year, gdp_pc, admin1_growth).
+# Output of build_admin1_gdp_growth.py.
+GDP_ADM1_PATH = Path(
+    os.environ.get("GDP_ADM1_PATH",
+                   str(PANEL_DIR / "admin1_gdp_growth_long.parquet"))
+)
+
+# ── Admin1-level aggregated outputs ──────────────────────────────────────────
+# Admin1 heat panel — output of aggregate_heat_to_admin1.py
+HEAT_ADM1_PANEL_PATH = PANEL_DIR / "admin1_heat_settlement_weighted.parquet"
+
+# Admin1 climate controls — output of aggregate_era5land_controls_to_admin1.py
+CONTROLS_ADM1_PATH   = PANEL_DIR / "admin1_era5land_annual_controls.parquet"
+
+# Admin2 → admin1 crosswalk — output of build_admin2_admin1_crosswalk.py
+CROSSWALK_PATH       = PANEL_DIR / "admin2_admin1_crosswalk.parquet"
+
+# Mixed admin1/admin2 panel — output of build_mixed_panel.py
+MIXED_PANEL_PATH     = PANEL_DIR / "panel_mixed_admin1level.parquet"
+
+# Admin2 lookup CSV (with centroid_sampled flag) — output of aggregate_heat_to_admin2.py
+ADMIN2_LOOKUP_CSV    = CACHE_DIR / "admin2_lookup.csv"
+
+# Mixed panel regression results — output of panel_regression_gdp_heat_mixed.py
+RESULTS_MIXED_CSV    = PANEL_DIR / "panel_regression_gdp_heat_results_mixed.csv"

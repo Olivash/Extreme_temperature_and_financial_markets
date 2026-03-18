@@ -20,8 +20,14 @@ src/
   aggregation/
     aggregate_heat_to_admin2.py          # Settlement-weighted EHD → admin2
     aggregate_era5_controls_to_admin2.py # Annual T and P → admin2
+    build_admin1_gdp_growth.py           # Admin1 GDP growth from GPKG
+    aggregate_heat_to_admin1.py          # Settlement-weighted EHD → admin1
+    aggregate_era5land_controls_to_admin1.py  # Annual T and P → admin1
+    build_admin2_admin1_crosswalk.py     # Admin2 → admin1 spatial crosswalk
+    build_mixed_panel.py                 # Merge admin2 + admin1 into mixed panel
   econometrics/
-    panel_regression_gdp_heat.py         # BHM-style panel regression
+    panel_regression_gdp_heat.py         # BHM-style panel regression (admin2)
+    panel_regression_gdp_heat_mixed.py   # BHM-style panel regression (mixed panel)
 data/
   raw/
     climate/README.md      # ERA5-Land + ERA5 CDS download instructions
@@ -45,6 +51,12 @@ data/
 | `data/processed/panel/admin2_heat_settlement_weighted.parquet` | 13 MB | EHD panel, admin2, settlement-weighted |
 | `data/processed/panel/admin2_era5land_annual_controls.parquet` | 11 MB | Annual T + P at admin2 |
 | `data/processed/panel/panel_regression_gdp_heat_results.csv` | 13 KB | Regression results (β = −0.036, Conley 500km t = −4.58) |
+| `data/processed/panel/admin2_admin1_crosswalk.parquet` | ~4 MB | Admin2→admin1 mapping with `has_missing` flag |
+| `data/processed/panel/admin1_heat_settlement_weighted.parquet` | ~1 MB | EHD panel, admin1, settlement-weighted |
+| `data/processed/panel/admin1_era5land_annual_controls.parquet` | ~1 MB | Annual T + P at admin1 |
+| `data/processed/panel/admin1_gdp_growth_long.parquet` | ~1 MB | Admin1 GDP growth (log-diff) |
+| `data/processed/panel/panel_mixed_admin1level.parquet` | ~14 MB | Mixed admin2/admin1 panel (preferred for regression) |
+| `data/processed/panel/panel_regression_gdp_heat_results_mixed.csv` | ~15 KB | Mixed panel regression results |
 
 ### Being generated (may still be running)
 

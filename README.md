@@ -20,6 +20,12 @@ reduces admin2 GDP growth by **0.36 pp** (β = −0.0361, Conley 500 km SE =
 entity fixed effects, year fixed effects, and country-specific quadratic time
 trends.
 
+The preferred pipeline uses a **mixed admin1/admin2 panel**: admin2 units that
+are too small to be reliably raster-sampled are aggregated up to their parent
+admin1 unit (using admin1-level GDP and climate data), while all other admin2
+units are kept as individual entities. This eliminates centroid-sampling bias
+for small regions without discarding observations.
+
 ---
 
 ## Future Extensions
@@ -47,11 +53,17 @@ Extreme_temperature_and_financial_markets/
 │   │   └── compute_ehd_conus.py       ← CONUS-only, faster, saves climatology
 │   │
 │   ├── aggregation/
-│   │   ├── aggregate_heat_to_admin2.py          ← settlement-weighted EHD → admin2
-│   │   └── aggregate_era5_controls_to_admin2.py ← annual T and P → admin2
+│   │   ├── aggregate_heat_to_admin2.py              ← settlement-weighted EHD → admin2
+│   │   ├── aggregate_era5_controls_to_admin2.py     ← annual T and P → admin2
+│   │   ├── build_admin1_gdp_growth.py               ← admin1 GDP growth from GPKG
+│   │   ├── aggregate_heat_to_admin1.py              ← settlement-weighted EHD → admin1
+│   │   ├── aggregate_era5land_controls_to_admin1.py ← annual T and P → admin1
+│   │   ├── build_admin2_admin1_crosswalk.py         ← admin2→admin1 spatial crosswalk
+│   │   └── build_mixed_panel.py                     ← merge admin2+admin1 mixed panel
 │   │
 │   └── econometrics/
-│       └── panel_regression_gdp_heat.py         ← BHM-style panel regressions
+│       ├── panel_regression_gdp_heat.py             ← BHM-style regressions (admin2)
+│       └── panel_regression_gdp_heat_mixed.py       ← BHM-style regressions (mixed, preferred)
 │
 └── data/
     ├── raw/                           ← inputs (not committed; see READMEs)
@@ -64,9 +76,15 @@ Extreme_temperature_and_financial_markets/
         │   ├── tmax_95th_pctl_doy_nh_jja_1990_2020.nc   ← CONUS JJA thresholds
         │   └── README.md
         └── panel/
-            ├── admin2_heat_settlement_weighted.parquet   ← EHD panel (25 yr)
-            ├── admin2_era5land_annual_controls.parquet   ← annual T and P panel
-            ├── panel_regression_gdp_heat_results.csv     ← full regression table
+            ├── admin2_heat_settlement_weighted.parquet   ← EHD panel, admin2 (25 yr)
+            ├── admin2_era5land_annual_controls.parquet   ← annual T and P, admin2
+            ├── admin2_admin1_crosswalk.parquet           ← admin2→admin1 with missing flag
+            ├── admin1_heat_settlement_weighted.parquet   ← EHD panel, admin1 (25 yr)
+            ├── admin1_era5land_annual_controls.parquet   ← annual T and P, admin1
+            ├── admin1_gdp_growth_long.parquet            ← admin1 GDP growth
+            ├── panel_mixed_admin1level.parquet           ← mixed panel (preferred input)
+            ├── panel_regression_gdp_heat_results.csv     ← admin2-only regression table
+            ├── panel_regression_gdp_heat_results_mixed.csv ← mixed panel regression table
             └── README.md
 ```
 
@@ -166,22 +184,22 @@ Install with pip:
 pip install numpy pandas geopandas xarray rasterio linearmodels statsmodels scipy patsy cfgrib eccodes
 ```
 
-### Option A — Use the pre-built panel (fastest)
+### Option A — Use the pre-built mixed panel (fastest, preferred)
 
 The processed panel files are already in `data/processed/panel/`.  To
 reproduce the regression results you need only supply the GDP growth parquet
-(constructed from the publicly available GADM/GDL data; see
-`data/raw/gdp/README.md`) and the GADM GeoPackage:
+and GADM GeoPackages (see `data/raw/gdp/README.md`):
 
 ```bash
 export GDP_GROWTH_PATH=/path/to/adm2_gdp_growth_residuals_long.parquet
 export ADMIN2_GPKG=/path/to/polyg_adm2_gdp_perCapita_1990_2022.gpkg
-python src/econometrics/panel_regression_gdp_heat.py
+export ADMIN1_GPKG=/path/to/polyg_adm1_gdp_perCapita_1990_2022.gpkg
+python src/econometrics/panel_regression_gdp_heat_mixed.py
 ```
 
-Results are written to `data/processed/panel/panel_regression_gdp_heat_results.csv`.
+Results are written to `data/processed/panel/panel_regression_gdp_heat_results_mixed.csv`.
 
-### Option B — Rebuild the full panel from ERA5
+### Option B — Rebuild the full mixed panel from ERA5
 
 1. **Download ERA5-Land** daily Tmax and ERA5 monthly T/P.
    See `data/raw/climate/README.md` for instructions.
@@ -190,25 +208,36 @@ Results are written to `data/processed/panel/panel_regression_gdp_heat_results.c
    ```bash
    python src/climate/compute_ehd_global.py
    ```
-   Or the faster CONUS-only version (~40 min):
-   ```bash
-   python src/climate/compute_ehd_conus.py
-   ```
 
-3. **Aggregate EHD to admin2** (~2–3 hours; requires GHS settlement rasters):
+3. **Aggregate EHD and ERA5 controls to admin2 and admin1**:
    ```bash
    python src/aggregation/aggregate_heat_to_admin2.py
+   python src/aggregation/aggregate_era5_controls_to_admin2.py
+   python src/aggregation/build_admin1_gdp_growth.py
+   python src/aggregation/aggregate_heat_to_admin1.py
+   python src/aggregation/aggregate_era5land_controls_to_admin1.py
    ```
 
-4. **Aggregate ERA5 controls to admin2** (~1 hour):
+4. **Build the admin2→admin1 crosswalk and mixed panel**:
    ```bash
-   python src/aggregation/aggregate_era5_controls_to_admin2.py
+   python src/aggregation/build_admin2_admin1_crosswalk.py
+   python src/aggregation/build_mixed_panel.py
    ```
 
 5. **Run regressions** (~30–90 min depending on Conley cutoffs):
    ```bash
-   python src/econometrics/panel_regression_gdp_heat.py
+   python src/econometrics/panel_regression_gdp_heat_mixed.py
    ```
+
+### Option C — Admin2-only pipeline (for comparison)
+
+```bash
+python src/aggregation/aggregate_heat_to_admin2.py
+python src/aggregation/aggregate_era5_controls_to_admin2.py
+python src/econometrics/panel_regression_gdp_heat.py
+```
+
+Results are written to `data/processed/panel/panel_regression_gdp_heat_results.csv`.
 
 ### Path configuration
 
