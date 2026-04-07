@@ -44,5 +44,4 @@ env/
 # OS
 .DS_Store
 Thumbs.db
-data/slopes/*.nc
-data/**/*.nc
+data/slopes/jja_exceedance_count_95pctl_era5clim_2001_2020_025deg.nc
