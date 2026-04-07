@@ -44,3 +44,5 @@ env/
 # OS
 .DS_Store
 Thumbs.db
+data/slopes/*.nc
+data/**/*.nc
