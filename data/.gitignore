@@ -1,1 +1,2 @@
 data/processed/climatologies/*.zarr
+data/slopes/*_exceedance_count_*.nc
